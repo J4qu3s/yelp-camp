@@ -20,8 +20,3 @@
         </div>
     </div>
 <% } %>
-<ul>
-    <% campgrounds.forEach((e) => { %>
-        <li><%= e.title %> - <a href="/campgrounds/<%= e._id %>">Show campground</a> - <a href="/campgrounds/<%= e._id %>/edit">Edit</a></li>
-    <% }) %>
-</ul>

@@ -48,4 +48,4 @@ const seedDB = async () => {
     
 }
 
-seedDB().then(() => db.close());
+    seedDB().then(() => db.close());
