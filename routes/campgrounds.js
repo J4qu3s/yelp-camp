@@ -5,6 +5,7 @@ const ExpressError = require('../utils/ExpressError');
 const methodOverride = require('method-override');
 const Campground = require('../models/campground');
 const { campgroundSchema, reviewSchema } = require('../schemas');
+const flash = require('connect-flash');
 
 const validateCampground = (req, res, next) => {
 
@@ -28,10 +29,10 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', validateCampground, catchAsync(async (req, res) => {
-    
     //if(!req.body.campground) throw new ExpressError('Invalid campground data', 400);
     const campground = new Campground(req.body.campground);
     await campground.save();
+    req.flash('success', 'succesfully made a new campground');
     res.redirect(`/campgrounds/${campground._id}`)
 }))
 
