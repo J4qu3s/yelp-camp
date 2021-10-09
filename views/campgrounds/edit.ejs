@@ -28,7 +28,7 @@
                 <label class="form-label" for="description">description</label>
                 <textarea rows="10" class="form-control" type="text" name="campground[description]" id="description" required><%= campground.description %></textarea>
             </div>
-            <!-- <div class="mb-3">
+            <div class="mb-3">
                 <% campground.images.forEach((img, i) => {  %>
                     <img class="img-fluid mb-2" src="<%= img.url %>" alt="">
                     <div class="form-check-inline">
@@ -36,7 +36,7 @@
                     </div>
                     <label class="mb-4" for="image-<%= i %>">Delete image <%= i %></label>
                 <% }) %>
-            </div> -->
+            </div>
             <div class="mb-3">
                 <button class="btn btn-success">Update campground</button>
                 <a href="/campgrounds/<%= campground._id %>" class="btn btn-warning">Back to campground</a>
