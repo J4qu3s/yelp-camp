@@ -51,7 +51,11 @@ const seedDB = async () => {
                   url: 'https://res.cloudinary.com/dy6eadhdv/image/upload/v1633525570/YelpCamp/pmc2iko4igwmcg4gcuni.jpg',
                   filename: 'YelpCamp/pmc2iko4igwmcg4gcuni'
                 }
-              ]           
+              ],
+              geometry: { 
+                  coordinates: [ 24.94861, 60.17333 ], 
+                  type: 'Point' 
+                }           
         });
         await camp.save();
     }

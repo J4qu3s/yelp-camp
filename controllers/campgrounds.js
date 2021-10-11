@@ -21,17 +21,16 @@ module.exports.createCampground = async (req, res) => {
         query: req.body.campground.location,
         limit: 1
     }).send()
-    console.log(geoData.body.features[0].geometry.coordinates);
-    res.send(geoData);
-/* 
+    
     const campground = new Campground(req.body.campground);
+    campground.geometry = geoData.body.features[0].geometry;
     //Map over req.files to add it as multiple entity array in current campgrounds images
     campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     campground.author = req.user._id;
     await campground.save();
     //console.log(campground);
     req.flash('success', 'succesfully made a new campground');
-    res.redirect(`/campgrounds/${campground._id}`) */
+    res.redirect(`/campgrounds/${campground._id}`)
 }
 
 //Show Campground
@@ -44,7 +43,7 @@ module.exports.showCampground = async (req, res) => {
             path: 'author'
         }
     }).populate('author');
-    //console.log(campground);
+    console.log(campground);
     // res.send(`this is the response ${id}`)
     if(!campground){
         req.flash('error', 'The campground you are looking for does not exist');
