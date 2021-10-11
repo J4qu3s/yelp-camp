@@ -1,5 +1,9 @@
-const campground = require('../models/campground');
 const Campground = require('../models/campground');
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({accessToken : mapBoxToken});
+const { cloudinary } = require('../cloudinary');
+
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
@@ -13,6 +17,13 @@ module.exports.renderNewForm = (req, res) => {
 //Create new Campground
 module.exports.createCampground = async (req, res) => {
     //if(!req.body.campground) throw new ExpressError('Invalid campground data', 400);
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.campground.location,
+        limit: 1
+    }).send()
+    console.log(geoData.body.features[0].geometry.coordinates);
+    res.send(geoData);
+/* 
     const campground = new Campground(req.body.campground);
     //Map over req.files to add it as multiple entity array in current campgrounds images
     campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
@@ -20,7 +31,7 @@ module.exports.createCampground = async (req, res) => {
     await campground.save();
     //console.log(campground);
     req.flash('success', 'succesfully made a new campground');
-    res.redirect(`/campgrounds/${campground._id}`)
+    res.redirect(`/campgrounds/${campground._id}`) */
 }
 
 //Show Campground
@@ -61,6 +72,13 @@ module.exports.updateCampground = async (req, res) => {
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
     campground.images.push(...imgs);
     await campground.save();
+    if(req.body.deleteImages){
+        for(let filename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
+        await campground.updateOne({$pull: { images: { filename: { $in: req.body.deleteImages }}}});
+        console.log(campground);
+    }
     req.flash('success', 'succesfully updated campground');
     res.redirect(`/campgrounds/${campground._id}`)
 }

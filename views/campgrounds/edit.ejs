@@ -30,11 +30,17 @@
             </div>
             <div class="mb-3">
                 <% campground.images.forEach((img, i) => {  %>
-                    <img class="img-fluid mb-2" src="<%= img.url %>" alt="">
-                    <div class="form-check-inline">
-                        <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img class="img-fluid mb-2" src="<%= img.thumbnail %>" alt="">
+                        <span>
+                            <div class="form-check-inline">
+                                <input class="ms-5" type="checkbox" id="image-<%= i  %>" name="deleteImages[]" value="<%= img.filename %>">
+                        </span>
+                        
                     </div>
-                    <label class="mb-4" for="image-<%= i %>">Delete image <%= i %></label>
+                    <label class="mb-4" for="image-<%= i %>">Delete image <%= i + 1 %></label>
+                    </div>
+                    
                 <% }) %>
             </div>
             <div class="mb-3">
