@@ -5,10 +5,39 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Yelp camp</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    
+    <link href="/css/bootstrap.min.css" rel='stylesheet' type='text/css' media='all'>
+    <link href="/css/homepage.css" rel='stylesheet' type='text/css' media='all'>
 </head>
-<body>
-    <h1>Welcome to yelp campground!</h1>
-    
+<body class="d-flex flex-column text-white bg-dark">
+    <!-- #start of navbar-->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark transparent ">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="/">YelpCamp</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            
+            <div class="navbar-nav ml-auto">
+            <% if(!currentUser){ %>
+                <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/register">Register</a>
+            <% } else { %>
+                <a class="nav-link" href="/logout">Logout</a>
+                <a class="nav-link" href="/campgrounds">Campgrounds</a>
+            <% } %> 
+            
+            </div>
+        </div>
+        </div>
+    </nav>
+<!-- #end of navbar-->
+<div class="d-flex align-items-center justify-content-center w-100 h-100 home-container mx-auto my-auto flex-column">
+    <h2>YelpCamp</h2>
+    <p>A best place for all of your best camping sites around the States</p>
+    <a href="/campgrounds"><button class="btn btn-lg btn-secondary">Get to campgrounds</button></a>
+
+</div>
+    <footer class="mt-auto text-white-50 transparent p-2">All rights reserved YelpCamp &copy;</footer>
 </body>
 </html>
